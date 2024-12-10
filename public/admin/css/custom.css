@@ -1,0 +1,21 @@
+.cate-image
+{
+	width:70px;
+	height:70px;
+
+}
+
+
+.form-select
+{
+    display:block;
+    width:100%;
+    padding: .37rem 2.25rem .375rem .75rem;
+    font-size: 16px;
+    font-weight:400;
+    color: #212529;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius:  .25rem;
+
+}
