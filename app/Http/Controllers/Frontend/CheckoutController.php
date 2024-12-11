@@ -42,21 +42,39 @@ class CheckoutController extends Controller
 
     public function placeorder(Request $request)
     {
-
+        /* 
     	$order = new Order();
     	$order->user_id=Auth::id();
         $order->fname=$request->fname;
         $order->lname=$request->lname;
         $order->phone=$request->phone;
-        $order->email=$request->email;
-        $order->address1=$request->address1;
-        $order->address2=$request->address2;
-        $order->city=$request->city;
-        $order->country=$request->country;
-        $order->state=$request->state;
-        $order->pincode=$request->pincode;
+        $order->email=$request->inputemail;
+        $order->address1=$requesinputt->address1;
+        $order->address2=$requesinputt->address2;
+        $order->city=$request->cinputity;
+        $order->country=$requestinput->country;
+        $order->state=$request->inputstate;
+        $order->pincode=$requestinput->pincode;
+        $order->tracking_no='shainputrma'.rand(1111,9999);
+        */
+        $order = new Order();
+    	$order->user_id=Auth::id();
+        $order->fname=$request->input("fname");
+        $order->lname=$request->input("lname");
+        $order->phone=$request->input("phone");
+        $order->email=$request->input("email");
+        $order->address1=$request->input("address1");
+        $order->address2=$request->input("address2");
+        $order->city=$request->input("city");
+        $order->country=$request->input("country");
+        $order->state=$request->input("state");
+        $order->pincode=$request->input("pincode");
         $order->tracking_no='sharma'.rand(1111,9999);
-
+        $order->payment_mode=$request->input("payment_mode");
+        $order->payment_id=$request->input("payment_id");
+        
+        
+        
         //To calculate the total price
         $total = 0;
         $cartitems_total = Cart::where('user_id',Auth::id())->get();
@@ -108,6 +126,11 @@ class CheckoutController extends Controller
         $cartitems = Cart::where('user_id',Auth::id())->get();
         Cart::destroy($cartitems);
 
+        if ($request->input("payment_mode")=="Paid by Razorpay" || $request->input("payment_mode")=="Paid by Paypal") 
+        {
+            return response()->json(["status"=>"Order placed successfully"]);
+
+        }
     	return redirect('/')->with('status',"Order placed Successfully");
     }
 

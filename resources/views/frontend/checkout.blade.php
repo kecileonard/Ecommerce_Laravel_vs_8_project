@@ -35,7 +35,7 @@
 
                       <div class="row checkout-form">
                          <div class="col-md-6">
-                           <label for="">First Name</label>
+                           <label for="">First Name </label>
                            <input type="text" class="form-control firstname" name="fname" value="{{Auth::user()->name}}" placeholder="Enter first name">
                            <span id="fname_error" class="text-danger"></span>
                          </div>
@@ -137,9 +137,11 @@
                         </table>
                         <h6 class="px-2">Grand Total <span class="float-end">Rs {{$total }}</span></h6>
                         <hr>
+                        <input type="hidden" name="payment_mode" value="COD">
                         <button type ="submit" class ="btn btn-success w-100"> Place Order | COD</button>
-                        <button type ="button" class ="btn btn-primary w-100 mt-3 razorpay_btn">Pay with Paypal</button>
-                       @else
+                        <!--<button type ="button" class ="btn btn-primary w-100 mt-3 razorpay_btn">Pay with Paypal</button>-->
+                        <div id="paypal-button-container"></div>
+                        @else
                         <h4 class="text-center"> No products in cart</h4>
                        @endif
                       </div>
@@ -153,5 +155,82 @@
 @endsection
 
 @section('scripts')
- <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<!-- Initialize the JS-SDK -->
+<script src="https://www.paypal.com/sdk/js?client-id=AVyC792MSU_u_FPI1-u0uSdEZhMF0h0KycvrDvf6tjT9zwhsBLcUDrgiQ3mZnCh6GMON-TH5bzaNQn4P&buyer-country=US&currency=USD&components=buttons&enable-funding=venmo,paylater,card"
+  data-sdk-integration-source="developer-studio"></script> 
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+  
+  paypal.Buttons({
+        style: {
+            shape: "rect",
+            layout: "vertical",
+            color: "gold",
+            label: "paypal",
+        },
+        message: {
+            amount: '{{ $total }}',
+        },      
+        createOrder: function(data, actions)  
+        {
+            return actions.order.create({
+                purchase_units: [{                
+                    amount: 
+                    {
+                    value: '{{ $total }}'
+                    }                                                    
+                }]
+            });
+        },
+
+        onApprove: function(data, actions) 
+        {
+            return actions.order.capture().then(function(details)
+            {                    
+                    
+                  var  firstname = $('.firstname').val();
+                  var  lastname  = $('.lastname').val();
+                  var  email = $('.email').val();
+                  var  phone = $('.phone').val();
+                  var  address1 = $('.address1').val();
+                  var  address2 = $('.address2').val();
+                  var  city = $('.city').val();
+                  var  state = $('.state').val();
+                  var  country = $('.country').val();
+                  var  pincode = $('.pincode').val();
+                 
+                  $.ajax({
+                        method: "POST",
+                        url: "/place-order",                        
+                        data:
+                        {
+                            'fname': firstname,
+                            'lname': lastname,
+                            'email': email,
+                            'phone': phone,
+                            'address1': address1,
+                            'address2': address2,
+                            'city': city,
+                            'state': state,
+                            'country': country,
+                            'pincode': pincode,
+                            'payment_mode': "Paid by Paypal",
+                            'payment_id': details.id
+                        },                      
+                        success: function (response)
+                        {
+                            swal(response.status);
+                            window.location.href = "/my-orders";
+                        }
+                    })
+
+            });
+        }
+
+        }).render("#paypal-button-container");
+
+       
+</script>  
+
 @endsection

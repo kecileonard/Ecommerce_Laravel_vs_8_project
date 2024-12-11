@@ -174,9 +174,35 @@ $(document).ready(function()
                         "description": "Thank you for choosing us",
                         "image": "https://example.com/your_logo",
                         //"order_id": "order_9A33XWu170gUtm", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-                        "handler": function (response)
+                        "handler": function (responsea)
                         {
-                            alert(response.razor_payment_id);
+                            alert(responsea.razor_payment_id);
+                            $.ajax({
+
+                                method: "POST",
+                                url: "/place-order",
+                                data:
+                                {
+                                    'fname': response.fname,
+                                    'lname': response.lname,
+                                    'email': response.first_name,
+                                    'phone': response.first_name,
+                                    'address1': response.address1,
+                                    'address2': response.address2,
+                                    'city': response.city,
+                                    'state': response.state,
+                                    'country': response.country,
+                                    'pincode': response.pincode,
+                                    'payment_mode': "Paid by Razorpay",
+                                    'payment_id': responsea.razor_payment_id
+                                },
+                               
+                                success: function (responseb)
+                                {
+                                    swal(responseb.status);
+                                    window.location.href = "/my-orders";
+                                }
+                            })
                         },
                         "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
                             "name": "Gaurav Kumar", //your customer's name
