@@ -31,7 +31,7 @@
                               <tr>
                               	   <td> {{ date('d-m-Y' , strtotime($order->created_at )) }}</td>
                                    <td> {{ $order->tracking_no}} </td>
-                                   <td> {{ $order->total_price}} </td>
+                                   <td> ${{ $order->total_price}} </td>
                                    <td> {{ $order->status == '0' ? 'pending' :'completed'}} </td>
                                    <td>  <a href="{{ url('admin/view-order/'.$order->id)}}" class ="btn btn-primary "> View </a> 
                                    </td>

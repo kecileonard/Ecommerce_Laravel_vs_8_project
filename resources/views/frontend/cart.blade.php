@@ -42,7 +42,7 @@
                 <div class="col-md-2 my-auto">
                   <h6>
                       </br>
-                      Rs{{ $item->products->selling_price }}
+                      ${{ $item->products->selling_price }}
                   </h6>
                 </div>
                 <div class="col-md-3 my-auto">
@@ -74,7 +74,7 @@
      <div class="card-footer">
                   <h6>
 
-                      Total price : Rs {{ $total }}
+                      Total price : ${{ $total }}
 
                   <a href ="{{url ('checkout')}}" class="btn btn-outline-success float-end">
                             Proceed to Checkout </a>

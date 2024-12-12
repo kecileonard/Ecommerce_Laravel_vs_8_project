@@ -69,7 +69,7 @@
                                 <tr>
                                     <td>{{ $item->products->name }} </td>
                                     <td>{{ $item->qty }} </td>
-                                    <td>{{ $item->price }} </td>
+                                    <td>${{ $item->price }} </td>
                                     <td>
                                         <img src="{{ asset('assets/uploads/product/'.$item->products->image) }}"
                                         width="50px" alt="Product Image">
@@ -80,7 +80,7 @@
                              </tbody>
 
                             </table>
-                          <h4 class="px-2">Grand Total :<span class="float-end"> {{$orders->total_price}} </span> </h4>
+                          <h4 class="px-2">Grand Total :<span class="float-end"> ${{$orders->total_price}} </span> </h4>
 
 
                         </div>

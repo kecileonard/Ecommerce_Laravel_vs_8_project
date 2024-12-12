@@ -15,10 +15,11 @@ class FrontendController extends Controller
 {
     public function index()
     {
-
-    	$featured_products=Product::where('trending','1')->take('15')->get();
-    	$trending_categories=Category::where('popular','1')->take('15')->get();
-    	return view('frontend.index',compact('featured_products','trending_categories'));
+    	
+      $featured_products=Product::where('trending','1')->take('15')->get();
+      $trending_categories=Category::where('popular','1')->take('15')->get();
+      $related_categories=Category::where('popular','0')->take('15')->get();
+    	return view('frontend.index',compact('featured_products','trending_categories' ,'related_categories'));
     }
 
     public function category()
@@ -33,7 +34,7 @@ class FrontendController extends Controller
     	{
     	  $category=Category::where('slug',$slug)->first();
     	  $products=Product::where('category_id',$category->id)->where('status','0')->get();
-    	return view('frontend.products.index',compact('products','category'));
+    	  return view('frontend.products.index',compact('products','category'));
 
        }else
        {

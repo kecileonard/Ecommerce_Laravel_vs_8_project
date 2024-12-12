@@ -74,8 +74,8 @@ Route::middleware(['auth'])->group(function()
 //});
 
 
-//Route::middleware('auth','isAdmin')->group(function ()
-Route::group(['middleware' => ['auth','isAdmin']], function () 
+//Route::group(['middleware' => ['auth','isAdmin']], function ()
+Route::middleware(['auth','isAdmin'])->group(function()
 {
 
    Route::get('/dashboard','Admin\FrontendController@index');

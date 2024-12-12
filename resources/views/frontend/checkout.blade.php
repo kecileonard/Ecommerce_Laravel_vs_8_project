@@ -127,7 +127,7 @@
                                  @php $total += ($item->products->selling_price * $item->prod_qty); @endphp
                                  <td> {{ $item->products->name}} </td>
                                  <td> {{ $item->prod_qty}} </td>
-                                 <td> {{ $item->products->selling_price}} </td>
+                                 <td> ${{ $item->products->selling_price}} </td>
 
                             @endforeach
                             </tr>
@@ -135,10 +135,10 @@
                            </tbody>
 
                         </table>
-                        <h6 class="px-2">Grand Total <span class="float-end">Rs {{$total }}</span></h6>
+                        <h6 class="px-2">Grand Total <span class="float-end">$ {{$total }}</span></h6>
                         <hr>
                         <input type="hidden" name="payment_mode" value="COD">
-                        <button type ="submit" class ="btn btn-success w-100"> Place Order | COD</button>
+                        <button type ="submit" class ="btn btn-success w-100"> Place Order </button>
                         <!--<button type ="button" class ="btn btn-primary w-100 mt-3 razorpay_btn">Pay with Paypal</button>-->
                         <div id="paypal-button-container"></div>
                         @else
@@ -220,8 +220,11 @@
                         },                      
                         success: function (response)
                         {
-                            swal(response.status);
-                            window.location.href = "/my-orders";
+                            swal(response.status)
+                            .then((value) => {
+                                window.location.href = "/my-orders";
+                            });
+                           
                         }
                     })
 

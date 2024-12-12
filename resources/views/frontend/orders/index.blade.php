@@ -31,7 +31,7 @@
                               @foreach($orders as $order)
                               <tr>
                                    <td> {{ $order->tracking_no}} </td>
-                                   <td> {{ $order->total_price}} </td>
+                                   <td> ${{ $order->total_price}} </td>
                                    <td> {{ $order->status == '0' ? 'pending' :'completed'}} </td>
                                    <td>  <a href="{{ url('view-order/'.$order->id)}}" class ="btn btn-primary "> View </a> 
                                    </td>

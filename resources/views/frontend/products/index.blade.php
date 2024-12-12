@@ -18,10 +18,7 @@
 
     </div>
 
-
 </div>
-
-
 
 	<div class ="py-5">
       <div class="container">
@@ -32,14 +29,15 @@
 
                 @foreach ($products as $prod)
 		           	  <div class="item">
-		                 <div class="card">
+		                 <div class="card h-100">
 
 		                 	<a href="{{url('category/'.$category->slug.'/'.$prod->slug)}}">
-		                 	  <img src="{{ asset('assets/uploads/product/'.$prod->image) }}"  alt="">
-		                        <div class="card -body">
+		                 	  <img src="{{ asset('assets/uploads/product/'.$prod->image) }}"  alt=""
+							   class="card-img-top img-fluid">
+		                        <div class="card-body">
 		                          <h5>{{$prod->name}}</h5>
-		                          <span class="float-start">{{$prod->selling_price}}</span>
-		                          <span class="float-end"><s>{{$prod->original_price}}</s></span>
+		                          <span class="float-start">${{$prod->selling_price}}</span>
+		                          <span class="float-end"><s>${{$prod->original_price}}</s></span>
 		                      </div>
 		                    </a>
 		                 </div>

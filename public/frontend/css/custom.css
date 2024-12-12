@@ -41,6 +41,20 @@
     padding-left: 1rem;
 }
 
+.card-body h5{
+    font-size: 18px;
+    font-weight: 500;
+    color: #1b51a1;
+    text-decoration: none;        
+}
+
+.card-body p{
+    font-size: 16px;
+    font-weight: 500;
+    color: #423e3e;   
+    text-decoration: none;
+}
+
 
 .card-img-top
 {

@@ -104,8 +104,8 @@
                             <hr>
 
 
-                            <label class="me-3">Original price : <s>Rs {{ $product->original_price}}</s></label>
-                            <label class="fw-bold"> Selling price : Rs  {{ $product->selling_price}}</label>
+                            <label class="me-3">Original price : <s> ${{ $product->original_price}}</s></label>
+                            <label class="fw-bold"> Selling price : ${{ $product->selling_price}}</label>
 
                             @php
                                 $ratenum = number_format($rating_value)
